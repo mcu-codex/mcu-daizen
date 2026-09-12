@@ -3083,6 +3083,12 @@ function simpleIcon(label, hex, size){
    HELPERS
    ============================================================ */
 const $ = s => document.querySelector(s);
+// ユーザー入力（検索窓など）を画面に表示する際に、HTMLとして解釈されないようエスケープする
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
 function parseTerms(t){
   return t.replace(/\[\[([a-z_0-9]+)\|([^\]]+)\]\]/g,(m,id,label)=>
     TERMS[id] ? `<span class="term" data-term="${id}">${label}</span>` : label);
@@ -5260,7 +5266,7 @@ function closeOverlays(){ backdrop.classList.remove("open"); panel.classList.rem
     const charHits = nodes.filter(n=> n.name.toLowerCase().includes(q)).slice(0,6);
     const termHits = Object.entries(TERMS).filter(([,t])=> t.label.toLowerCase().includes(q)).slice(0,6);
     if(!workHits.length && !charHits.length && !legacyHits.length && !termHits.length){
-      results.innerHTML = `<div class="sr-empty">「${query}」に一致する作品・キャラクター・用語は見つかりませんでした。</div>`;
+      results.innerHTML = `<div class="sr-empty">「${escapeHtml(query)}」に一致する作品・キャラクター・用語は見つかりませんでした。</div>`;
       positionResults();
       results.hidden = false;
       return;
