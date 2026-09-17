@@ -143,6 +143,21 @@
     background:linear-gradient(100deg, var(--red-dark), var(--red));
     transform:rotate(-6deg); opacity:.16; }
   .hero > *{ position:relative; z-index:1; }
+  .hero-artwork{ position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:.9; }
+  .hero-orbit-ring{ transform-origin:960px 200px; }
+  .hero-orbit-1{ animation:heroOrbitSpin 40s linear infinite; }
+  .hero-orbit-2{ animation:heroOrbitSpin 65s linear infinite reverse; }
+  .hero-portal-ring{ animation:heroPortalPulse 6s ease-in-out infinite; transform-origin:960px 200px; }
+  .hero-stars circle{ animation:heroStarTwinkle 3.4s ease-in-out infinite; }
+  .hero-stars circle:nth-child(2n){ animation-delay:.8s; }
+  .hero-stars circle:nth-child(3n){ animation-delay:1.6s; }
+  @keyframes heroOrbitSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+  @keyframes heroPortalPulse{ 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.08); opacity:.85; } }
+  @keyframes heroStarTwinkle{ 0%,100%{ opacity:.3; } 50%{ opacity:1; } }
+  @media (prefers-reduced-motion:reduce){
+    .hero-orbit-1, .hero-orbit-2, .hero-portal-ring, .hero-stars circle{ animation:none; }
+  }
+  @media (max-width:720px){ .hero-artwork{ opacity:.55; } }
   .hero .eyebrow{ font-family:'Space Mono'; font-size:.66rem; letter-spacing:.3em; text-transform:uppercase; color:var(--text-faint);
     display:inline-flex; align-items:center; gap:.5rem; }
   .hero .eyebrow::before{ content:""; width:8px; height:8px; background:var(--red); border-radius:50%; box-shadow:0 0 8px var(--red-glow); }
@@ -171,11 +186,90 @@
   nav button{ font-size:.8rem; color:var(--text-dim); text-decoration:none; white-space:nowrap;
     border-bottom:2px solid transparent; padding-bottom:2px; transition:.2s; background:none; border-top:none; border-left:none; border-right:none; }
   nav button:hover{ color:var(--text); border-color:var(--red); }
+  #mobileSearchIcon{ display:none; }
+  @media (max-width:900px){
+    nav{ gap:.6rem; }
+    #mobileSearchIcon{ display:flex; align-items:center; justify-content:center; width:36px; height:36px;
+      margin-left:auto; font-size:1.05rem; border-radius:50%; background:var(--surface); border:2px solid var(--ink); flex-shrink:0; }
+    .navlinks-wrap{ display:none; }
+    nav .navsearch{ flex:1 1 100%; order:5; display:none; }
+    nav.search-open .navsearch{ display:block; }
+    nav.search-open #mobileSearchIcon{ background:var(--red); border-color:var(--ink); }
+  }
   @media (max-width:720px){
     nav .navsearch{ flex:1 1 100%; order:5; }
   }
 
   /* ---------- FIRST VISIT GUIDE ---------- */
+  /* ---------- MODE CHOICE ---------- */
+  .mode-choice-section{ max-width:900px; margin:0 auto; padding:1.6rem var(--pad) 0; text-align:center; }
+  .mode-choice-lead{ font-size:.85rem; color:var(--text-dim); margin-bottom:1rem; }
+  .mode-choice-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .mode-card{ background:var(--surface); border:2px solid var(--ink); border-radius:14px; box-shadow:var(--comic-sh-sm);
+    padding:1.4rem 1.2rem; text-align:left; display:flex; flex-direction:column; gap:.5rem; transition:.18s; }
+  .mode-card:hover{ background:var(--surface-2); transform:translate(-2px,-2px); box-shadow:var(--comic-sh); }
+  .mode-card-icon{ font-size:1.8rem; }
+  .mode-card-title{ font-family:var(--font-comic-ja); font-size:1.15rem; color:var(--text); }
+  .mode-card-desc{ font-size:.74rem; color:var(--text-dim); line-height:1.6; }
+  .mode-switch-pill-wrap{ text-align:center; padding:.6rem var(--pad) 0; }
+  .mode-switch-pill{ margin-top:.9rem; font-size:.7rem; color:var(--text-faint); text-decoration:underline; }
+  @media (max-width:600px){ .mode-choice-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- BEGINNER HOME ---------- */
+  .beginner-home-section{ max-width:640px; margin:2rem auto 0; padding:2rem var(--pad); text-align:center;
+    background:var(--surface); border:2px solid var(--ink); border-radius:16px; box-shadow:var(--comic-sh); }
+  .bh-badge{ display:inline-block; font-family:'Space Mono'; font-size:.65rem; font-weight:700; letter-spacing:.1em;
+    background:var(--mind); color:#1a1400; padding:.25rem .8rem; border-radius:999px; margin-bottom:1rem; }
+  .bh-title{ font-family:var(--font-comic-ja); font-size:1.7rem; color:#fff; margin-bottom:.8rem; }
+  .bh-whatis{ background:var(--bg); border:1.5px solid var(--line); border-radius:10px;
+    padding:1rem 1.2rem; margin:1rem auto 1.2rem; max-width:520px; text-align:left; }
+  .bh-whatis-label{ font-family:'Space Mono'; font-size:.62rem; letter-spacing:.1em; color:var(--mind);
+    text-transform:uppercase; margin-bottom:.4rem; }
+  .bh-whatis-text{ font-size:.8rem; color:var(--text-dim); line-height:1.75; }
+  .bh-lead{ font-size:.9rem; color:var(--text-dim); line-height:1.8; margin-bottom:1.4rem; }
+  .bh-cta{ display:inline-block; font-size:1rem; font-weight:700; color:#fff; background:var(--red);
+    border:2px solid var(--ink); border-radius:999px; padding:1rem 2rem; box-shadow:var(--comic-sh-sm); transition:.15s; margin-bottom:1.2rem; }
+  .bh-cta:hover{ background:var(--red-dark); transform:translate(-2px,-2px); box-shadow:var(--comic-sh); }
+  .bh-progress{ font-size:.78rem; color:var(--mind); font-weight:700; margin-bottom:1.3rem; min-height:1.2em; }
+  .bh-secondary{ display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem; }
+  .bh-secondary button{ font-size:.76rem; color:var(--text-dim); background:var(--bg); border:1.5px solid var(--line);
+    border-radius:999px; padding:.55rem 1rem; transition:.15s; }
+  .bh-secondary button:hover{ border-color:var(--mind); color:var(--text); }
+
+  .bh-complete{ background:var(--bg); border:2px solid var(--mind); border-radius:12px;
+    padding:1.4rem 1.3rem; margin-bottom:1.4rem; text-align:center; }
+  .bh-complete-badge{ font-family:var(--font-comic-ja); font-size:1.15rem; color:var(--text); margin-bottom:.5rem; }
+  .bh-complete-text{ font-size:.82rem; color:var(--text-dim); margin-bottom:1.1rem; }
+  .bh-complete-actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; }
+  .bh-complete-btn{ font-size:.82rem; font-weight:700; color:#fff; background:var(--red);
+    border:2px solid var(--ink); border-radius:999px; padding:.75rem 1.3rem; transition:.15s; }
+  .bh-complete-btn:hover{ background:var(--red-dark); transform:translate(-2px,-2px); box-shadow:var(--comic-sh-sm); }
+  .bh-complete-btn-ghost{ background:transparent; color:var(--text-dim); }
+  .bh-complete-btn-ghost:hover{ background:var(--surface); color:var(--text); }
+
+  .bh-route{ text-align:left; display:flex; flex-direction:column; margin-bottom:1.4rem; }
+  .bh-step{ position:relative; display:flex; gap:1rem; padding-bottom:1.2rem; }
+  .bh-step:last-child{ padding-bottom:0; }
+  .bh-step::before{ content:""; position:absolute; left:18px; top:38px; bottom:0; width:2px; background:var(--line); }
+  .bh-step:last-child::before{ display:none; }
+  .bh-step.bh-step-done::before{ background:var(--nc,var(--mind)); }
+  .bh-step-num{ flex:0 0 auto; width:37px; height:37px; border-radius:50%; background:var(--bg);
+    border:2.5px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono'; font-weight:700; font-size:.85rem; color:var(--text-dim); z-index:1; }
+  .bh-step-done .bh-step-num{ background:var(--mind); border-color:var(--mind); color:#1a1400; }
+  .bh-step-body{ flex:1 1 auto; min-width:0; padding-top:.15rem; }
+  .bh-step-main{ display:block; width:100%; text-align:left; }
+  .bh-step-meta{ font-family:'Space Mono'; font-size:.62rem; color:var(--text-faint); margin-bottom:.15rem; }
+  .bh-step-title{ font-family:var(--font-comic-ja); font-size:1.05rem; color:var(--text); margin-bottom:.3rem; transition:.15s; }
+  .bh-step-main:hover .bh-step-title{ color:var(--mind); }
+  .bh-step-why{ font-size:.76rem; color:var(--text-dim); line-height:1.6; margin-bottom:.5rem; }
+  .bh-step-watch{ display:inline-flex; align-items:center; gap:.4rem; font-size:.74rem; color:var(--text-faint); cursor:pointer; }
+  .bh-step-watch input{ width:16px; height:16px; accent-color:var(--mind); cursor:pointer; }
+
+  /* ---------- FAN-ONLY SECTIONS (はじめてモードでは非表示) ---------- */
+  body.beginner-mode .fan-only{ display:none !important; }
+  body.beginner-mode #modeChoice{ display:none; }
+
   .firstvisit{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
     max-width:1400px; margin:1.4rem auto 0; padding:1rem 1.3rem;
     background:linear-gradient(135deg, rgba(230,36,41,.16), rgba(232,185,35,.08));
@@ -189,6 +283,76 @@
     border:2px solid var(--ink); border-radius:999px; box-shadow:var(--comic-sh-sm);
     padding:.55rem 1.3rem; white-space:nowrap; transition:.15s; }
   .fv-btn:hover{ background:var(--red-dark); transform:translate(-2px,-2px); box-shadow:var(--comic-sh); }
+
+  /* ---------- NEXT UP WIDGET ---------- */
+  .nextup-section{ max-width:1400px; margin:1.4rem auto 0; padding:0 var(--pad); }
+  .nextup-progress{ background:var(--surface); border:var(--comic-b); border-radius:12px;
+    box-shadow:var(--comic-sh-sm); padding:1.1rem 1.3rem; margin-bottom:1rem; }
+  .nextup-progress-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:.6rem; flex-wrap:wrap; gap:.4rem; }
+  .nextup-label{ font-family:var(--font-comic-ja); font-size:1.05rem; color:var(--text); }
+  .nextup-count{ font-family:'Space Mono'; font-size:.8rem; color:var(--mind); font-weight:700; }
+  .nextup-bar{ height:10px; border-radius:999px; background:var(--bg); border:2px solid var(--ink); overflow:hidden; }
+  .nextup-bar-fill{ height:100%; background:linear-gradient(90deg,var(--red),var(--mind)); width:0%; transition:width .5s; }
+  .nextup-phase{ font-size:.72rem; color:var(--text-faint); margin-top:.55rem; }
+  .nextup-recent{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; margin-top:.7rem; }
+  .nextup-recent-label{ font-size:.7rem; color:var(--text-faint); margin-right:.1rem; }
+  .nextup-recent-chip{ font-size:.7rem; color:var(--text-dim); background:var(--bg); border:1.5px solid var(--line);
+    border-radius:999px; padding:.3rem .75rem; transition:.15s; }
+  .nextup-recent-chip:hover{ border-color:var(--mind); color:var(--text); }
+  .nextup-recs-head{ font-family:var(--font-comic-ja); font-size:1rem; color:var(--text); margin-bottom:.7rem; }
+  .nextup-recs{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:.8rem; }
+  .nextup-card{ background:var(--surface); border:2px solid var(--ink); border-left:5px solid var(--pc);
+    border-radius:10px; box-shadow:var(--comic-sh-sm); padding:1rem 1.1rem; text-align:left; transition:.15s; }
+  .nextup-card:hover{ background:var(--surface-2); transform:translate(-2px,-2px); box-shadow:var(--comic-sh); }
+  .nextup-card-tag{ font-family:'Space Mono'; font-size:.6rem; color:var(--mind); letter-spacing:.08em; text-transform:uppercase; margin-bottom:.3rem; }
+  .nextup-card-title{ font-family:var(--font-comic-ja); font-size:1.15rem; color:var(--text); margin-bottom:.4rem; }
+  .nextup-card-reason{ font-size:.72rem; color:var(--text-dim); line-height:1.6; }
+  .nextup-empty{ background:var(--surface); border:2px dashed var(--line); border-radius:10px; padding:1.2rem; text-align:center; color:var(--text-dim); font-size:.85rem; }
+
+  /* ---------- EXPLORE MCU ---------- */
+  .explore-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:1rem; }
+  .explore-card{ background:var(--surface); border:2px solid var(--ink); border-radius:12px;
+    box-shadow:var(--comic-sh-sm); padding:1.3rem 1.1rem; text-align:left; transition:.18s; }
+  .explore-card:hover{ background:var(--surface-2); transform:translate(-2px,-2px); box-shadow:var(--comic-sh); }
+  .explore-card:hover .explore-art{ transform:scale(1.08); }
+  .explore-art{ width:46px; height:46px; margin-bottom:.8rem; transition:transform .25s; display:block; }
+  .explore-card-title{ font-family:var(--font-comic-ja); font-size:1.05rem; color:var(--text); margin-bottom:.35rem; }
+  .explore-card-desc{ font-size:.72rem; color:var(--text-dim); line-height:1.6; }
+
+  /* ---------- TODAY'S MCU ---------- */
+  .today-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; }
+  .today-card{ background:var(--surface); border:2px solid var(--ink); border-radius:12px;
+    box-shadow:var(--comic-sh-sm); padding:1.2rem 1.2rem; text-align:left; transition:.18s; overflow:hidden; position:relative; }
+  .today-card:hover{ background:var(--surface-2); transform:translate(-2px,-2px); box-shadow:var(--comic-sh); }
+  .today-card-eyebrow{ font-family:'Space Mono'; font-size:.6rem; letter-spacing:.12em; color:var(--tc,var(--mind));
+    text-transform:uppercase; margin-bottom:.5rem; display:flex; align-items:center; gap:.4rem; }
+  .today-card-title{ font-family:var(--font-comic-ja); font-size:1.15rem; color:var(--text); margin-bottom:.4rem;
+    display:flex; align-items:center; gap:.6rem; }
+  .today-card-sub{ font-size:.72rem; color:var(--text-dim); line-height:1.6; }
+
+  /* ---------- MACRO TIMELINE ---------- */
+  .mtl-track{ position:relative; display:flex; align-items:flex-start; overflow-x:auto; padding:1.6rem .5rem 1rem;
+    gap:0; scroll-snap-type:x proximity; scrollbar-width:auto; scrollbar-color:var(--line) transparent; }
+  .mtl-track::-webkit-scrollbar{ height:10px; }
+  .mtl-track::-webkit-scrollbar-thumb{ background:var(--line); border-radius:5px; }
+  .mtl-track::-webkit-scrollbar-track{ background:transparent; }
+  .mtl-node{ position:relative; flex:0 0 auto; width:min(190px,32vw); text-align:center; padding:0 .6rem;
+    scroll-snap-align:start; }
+  .mtl-node::before{ content:""; position:absolute; top:15px; left:0; right:0; height:3px; background:var(--line); z-index:0; }
+  .mtl-node:first-child::before{ left:50%; }
+  .mtl-node:last-child::before{ right:50%; }
+  .mtl-node.done::before{ background:var(--nc); }
+  .mtl-dot{ position:relative; z-index:1; width:32px; height:32px; margin:0 auto .7rem; border-radius:50%;
+    background:var(--surface); border:3px solid var(--nc); display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono'; font-size:.7rem; font-weight:700; color:var(--nc); transition:.2s; }
+  .mtl-node button{ width:100%; padding:.4rem; border-radius:10px; transition:.15s; }
+  .mtl-node button:hover{ background:var(--surface); }
+  .mtl-node button:hover .mtl-dot{ transform:scale(1.15); box-shadow:0 0 0 5px rgba(255,255,255,.06); }
+  .mtl-phase-label{ font-family:var(--font-comic-ja); font-size:.95rem; color:var(--text); margin-bottom:.15rem; }
+  .mtl-years{ font-family:'Space Mono'; font-size:.62rem; color:var(--text-faint); margin-bottom:.2rem; }
+  .mtl-saga{ font-size:.62rem; color:var(--nc); font-weight:700; letter-spacing:.04em; }
+  @media (max-width:720px){ .mtl-node{ width:130px; } .mtl-phase-label{ font-size:.82rem; } }
+
 
   /* ---------- USAGE GUIDE ---------- */
   .feature-links{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; margin-bottom:1.1rem; }
@@ -241,9 +405,30 @@
   .rail-head .bar{ width:3px; height:19px; border-radius:2px; }
   .rail-head h3{ font-family:var(--font-comic-en); font-size:1.1rem; letter-spacing:.02em; font-weight:400; }
   .rail-head .meta{ font-family:'Space Mono'; font-size:.62rem; color:var(--text-faint); margin-left:auto; white-space:nowrap; }
-  .rail-track{ display:flex; gap:.75rem; overflow-x:auto; padding-bottom:.7rem; scroll-snap-type:x proximity; }
-  .rail-track::-webkit-scrollbar{ height:5px; }
-  .rail-track::-webkit-scrollbar-thumb{ background:var(--line); border-radius:3px; }
+  .rail-track{ display:flex; gap:.75rem; overflow-x:auto; padding-bottom:.7rem; scroll-snap-type:x proximity;
+    scrollbar-width:auto; scrollbar-color:var(--line) transparent; }
+  @media (max-width:720px){
+    .rail-track{ flex-direction:column; overflow-x:visible; padding-bottom:0; gap:.6rem; }
+    .rail-track .card{ flex:1 1 auto; width:100%; scroll-snap-align:none; }
+    .rail-scroll-wrap:has(.rail-track) .rail-arrow{ display:none; }
+  }
+  .rail-track::-webkit-scrollbar{ height:10px; }
+
+  /* ---------- RAIL SCROLL ARROWS (共通・矢印でのクリック送り) ---------- */
+  .rail-scroll-wrap{ position:relative; }
+  .rail-arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+    width:34px; height:34px; border-radius:50%; background:var(--surface-2); border:2px solid var(--ink);
+    color:var(--text); font-size:1.1rem; line-height:1; display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--comic-sh-sm); opacity:.92; transition:.15s; }
+  .rail-arrow:hover{ background:var(--red); transform:translateY(-50%) translateX(0) scale(1.06); }
+  .rail-arrow.hide{ opacity:0; pointer-events:none; }
+  .rail-arrow-left{ left:-6px; }
+  .rail-arrow-right{ right:-6px; }
+  @media (max-width:720px){
+    .rail-arrow{ width:30px; height:30px; font-size:1rem; }
+    .rail-arrow-left{ left:-4px; } .rail-arrow-right{ right:-4px; }
+  }
+  .rail-track::-webkit-scrollbar-thumb{ background:var(--line); border-radius:5px; }
   .rail-track::-webkit-scrollbar-track{ background:transparent; }
   .card{ position:relative; flex:0 0 min(210px,68vw); scroll-snap-align:start; background:var(--surface);
     border:2px solid var(--ink); border-top:5px solid var(--pc); border-radius:8px; box-shadow:var(--comic-sh-sm);
@@ -503,7 +688,7 @@
   .navsearch{ position:relative; flex:0 1 240px; min-width:120px; }
   .navsearch input{ width:100%; padding:.42rem .7rem; border-radius:7px; background:var(--surface);
     border:1px solid var(--line); color:var(--text); font-size:.78rem; font-family:inherit; }
-  .navsearch input:focus{ outline:none; border-color:var(--mind); }
+  .navsearch input:focus{ outline:none; border-color:var(--mind); box-shadow:0 0 0 3px rgba(232,185,35,.35); }
   .search-results{ position:fixed; background:var(--surface-2);
     border:1px solid var(--line); border-radius:9px; max-height:60vh; overflow-y:auto; z-index:70;
     box-shadow:0 12px 32px rgba(0,0,0,.6); }
@@ -513,6 +698,7 @@
     font-size:.82rem; color:var(--text-dim); text-align:left; }
   .search-results button:hover{ background:var(--surface); color:var(--text); }
   .search-results .sr-empty{ padding:1rem .8rem; font-size:.8rem; color:var(--text-faint); }
+  .search-results .sr-sub{ color:var(--text-faint); font-size:.72rem; }
 
   /* works toolbar */
   .toolbar{ display:flex; align-items:center; gap:.9rem; flex-wrap:wrap; margin-bottom:1.3rem; }
@@ -625,7 +811,7 @@
   /* ---------- GLOSSARY (accordion) ---------- */
   .gsearch{ width:100%; max-width:22em; padding:.6rem .9rem; border-radius:8px; margin-bottom:1rem;
     background:var(--surface); border:1px solid var(--line); color:var(--text); font-family:inherit; font-size:.84rem; }
-  .gsearch:focus{ outline:none; border-color:var(--mind); }
+  .gsearch:focus{ outline:none; border-color:var(--mind); box-shadow:0 0 0 3px rgba(232,185,35,.35); }
   .acc{ border:2px solid var(--ink); border-radius:9px; margin-bottom:.6rem; overflow:hidden; background:var(--surface); }
   .acc-h{ width:100%; display:flex; align-items:center; gap:.6rem; padding:.75rem .95rem; font-size:.82rem; font-weight:500; }
   .acc-h .cnt{ font-family:'Space Mono'; font-size:.62rem; color:var(--text-faint); margin-left:auto; }
@@ -677,12 +863,35 @@
   .modal{ background:var(--surface-2); border:3px solid var(--ink); border-top:6px solid var(--pc); box-shadow:var(--comic-sh-lg);
     border-radius:12px; max-width:560px; width:100%; max-height:88vh; padding:0;
     display:flex; flex-direction:column; overflow:hidden; }
+  @media (max-width:900px){
+    .modal{ max-height:calc(100vh - 76px - env(safe-area-inset-bottom,0px) - 145px); }
+    .backdrop{ align-items:flex-start; padding-top:calc(56px + 1rem); }
+  }
   .modal-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; padding:1.5rem; background:var(--surface-2); position:relative; z-index:1; }
   .modal .meta{ font-family:'Space Mono'; font-size:.66rem; color:var(--text-dim); display:flex; align-items:center; gap:.45rem; }
   .modal h3{ font-family:var(--font-comic-ja); font-weight:400; font-size:1.5rem; letter-spacing:.02em; margin:.45rem 0 .6rem; }
   .modal p{ color:var(--text-dim); font-size:.85rem; }
   .lbl{ font-family:'Space Mono'; font-size:.6rem; letter-spacing:.15em; text-transform:uppercase;
     color:var(--text-faint); margin:1.15rem 0 .55rem; }
+  .prewatch-list{ list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+  .prewatch-list li{ position:relative; padding-left:1.3rem; font-size:.8rem; color:var(--text-dim); line-height:1.7; }
+  .prewatch-list li::before{ content:"💡"; position:absolute; left:0; top:.05rem; font-size:.75rem; }
+
+  .modal-thread-list{ display:flex; flex-direction:column; gap:.5rem; }
+  .modal-thread-card{ display:flex; align-items:center; gap:.6rem; padding:.6rem .8rem;
+    background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--tc,var(--mind));
+    border-radius:8px; text-align:left; transition:.15s; }
+  .modal-thread-card:hover{ background:var(--surface-2); }
+  .modal-thread-card .thread-status{ font-size:.62rem; font-weight:700; color:var(--tc,var(--mind));
+    background:rgba(255,255,255,.06); padding:.15rem .5rem; border-radius:999px; flex-shrink:0; }
+  .modal-thread-title{ font-size:.8rem; color:var(--text); }
+  .modal-song-list{ display:flex; flex-direction:column; gap:.45rem; }
+  .modal-song-row{ display:flex; align-items:baseline; gap:.5rem; padding:.5rem .8rem;
+    background:var(--surface); border:1px solid var(--line); border-radius:8px; }
+  .modal-song-title{ font-size:.8rem; font-weight:700; color:var(--text); }
+  .modal-song-artist{ font-size:.7rem; color:var(--mind); }
+  .modal-song-more{ font-size:.72rem; color:var(--text-faint); padding:.4rem .8rem; text-align:left; }
+  .modal-song-more:hover{ color:var(--text); }
   .castl{ display:flex; flex-wrap:wrap; gap:.4rem; }
   .castgroups{ display:flex; flex-direction:column; gap:.9rem; }
   .castgroup .cg-label{ display:flex; align-items:center; gap:.4rem; font-size:.68rem; color:var(--text-faint);
@@ -732,11 +941,15 @@
     .panel-scroll{ padding:1.5rem 1.3rem; }
   }
   @media (max-width:720px){
-    .panel{ left:0; right:0; bottom:0; max-height:76vh; border-radius:16px 16px 0 0; transform:translateY(105%); }
+    .panel{ left:0; right:0; bottom:calc(76px + env(safe-area-inset-bottom,0px)); max-height:calc(76vh - 76px); border-radius:16px 16px 0 0; transform:translateY(105%); }
     .panel.open{ transform:translateY(0); }
     .panel::before{ content:""; display:block; width:38px; height:4px; border-radius:2px;
       background:var(--line); margin:.7rem auto 0; flex:0 0 auto; }
     .panel-scroll{ padding:1rem 1.1rem 2rem; }
+  }
+  @media (min-width:721px) and (max-width:900px){
+    /* タブバー表示幅とパネルのブレークポイント(720px)の間の隙間を埋める安全策 */
+    .panel{ height:calc(100% - 56px - 76px - env(safe-area-inset-bottom,0px)); }
   }
   .panel-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; background:var(--surface-2); position:relative; z-index:1; }
   .panel .phead{ display:flex; align-items:center; gap:.7rem; margin-bottom:.2rem; }
@@ -793,6 +1006,21 @@
     opacity:0; pointer-events:none; transform:translateY(10px); transition:.25s; }
   #totop.show{ opacity:1; pointer-events:auto; transform:translateY(0); }
   #totop:hover{ background:var(--red-dark); }
+  @media (max-width:900px){ #totop{ display:none; } }
+
+  /* ---------- MOBILE FIXED TAB BAR ---------- */
+  #mobileTabBar{ display:none; }
+  @media (max-width:900px){
+    #mobileTabBar{ display:flex; justify-content:space-around; position:fixed; top:auto; left:0; right:0; bottom:0; height:auto; z-index:100;
+      background:var(--surface-2); border-top:2px solid var(--ink); box-shadow:0 -4px 0 rgba(0,0,0,.25); }
+    #mobileTabBar button{ flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:.12rem;
+      padding:.5rem .6rem calc(.4rem + env(safe-area-inset-bottom,0px)); color:var(--text-faint); transition:.15s; border-radius:10px; }
+    #mobileTabBar button:active{ background:var(--surface); }
+    #mobileTabBar button.on{ color:var(--mind); }
+    .mtab-icon{ font-size:1.05rem; line-height:1; }
+    .mtab-label{ font-size:.58rem; font-weight:700; }
+    body{ padding-bottom:64px; }
+  }
 
   /* ---------- SCROLLSPY SECTION DOTS ---------- */
   #sectionNav{ position:fixed; right:1.4rem; top:50%; transform:translateY(-50%); z-index:44;
@@ -810,13 +1038,21 @@
 
   /* ---------- MOBILE SECTION NAV (pill + sheet) ---------- */
   #sectionNavPill{ position:fixed; left:1rem; bottom:1.2rem; z-index:45; display:none;
-    align-items:center; gap:.4rem; max-width:58vw; background:var(--surface-2); color:var(--text);
-    border:2px solid var(--ink); border-radius:999px; padding:.6rem 1rem .6rem .8rem;
-    font-size:.74rem; font-weight:700; box-shadow:var(--comic-sh-sm);
-    opacity:0; pointer-events:none; transform:translateY(10px); transition:.25s; }
+    align-items:center; gap:.45rem; max-width:60vw; background:var(--surface-2); color:var(--text);
+    border:2px solid var(--mind); border-radius:999px; padding:.6rem 1.05rem .6rem .8rem;
+    font-size:.74rem; font-weight:700; box-shadow:0 0 0 3px rgba(232,185,35,.18), var(--comic-sh-sm);
+    opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity .25s, transform .25s; }
   #sectionNavPill.show{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  #sectionNavPill.attn{ animation: snpAttn 1.6s ease-in-out 2; }
+  @keyframes snpAttn{
+    0%, 100%{ transform:translateY(0) scale(1); box-shadow:0 0 0 3px rgba(232,185,35,.18), var(--comic-sh-sm); }
+    30%{ transform:translateY(-6px) scale(1.05); box-shadow:0 0 0 7px rgba(232,185,35,.32), var(--comic-sh); }
+  }
   #sectionNavPill span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  @media (max-width:900px){ #sectionNavPill{ display:inline-flex; } }
+  #sectionNavPill .snp-chevron{ color:var(--mind); font-size:.9rem; flex-shrink:0; overflow:visible; animation:snpChevron 1.4s ease-in-out infinite; transition:transform .2s; }
+  #sectionNavPill.open .snp-chevron{ transform:rotate(180deg); animation:none; }
+  @keyframes snpChevron{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+  @media (max-width:900px){ #sectionNavPill{ display:none; } }
 
   #sectionNavSheet{ position:fixed; inset:0; z-index:250; display:none; }
   #sectionNavSheet.open{ display:block; }
@@ -828,13 +1064,17 @@
   .sns-head{ display:flex; align-items:center; justify-content:space-between; padding:1rem 1.2rem;
     font-family:var(--font-comic-ja); font-size:1rem; border-bottom:1px solid var(--line); flex-shrink:0; }
   .sns-head button{ font-size:1.1rem; color:var(--text-faint); }
-  .sns-list{ overflow-y:auto; padding:.6rem; }
-  .sns-list button{ width:100%; display:flex; align-items:center; gap:.6rem; text-align:left;
-    padding:.8rem .9rem; border-radius:9px; font-size:.85rem; color:var(--text-dim); transition:.15s; }
-  .sns-list button:hover{ background:var(--surface); }
-  .sns-list button.on{ background:rgba(230,36,41,.15); color:var(--text); font-weight:700; }
-  .sns-list button .sns-dot{ width:8px; height:8px; border-radius:50%; background:var(--line); flex-shrink:0; }
-  .sns-list button.on .sns-dot{ background:var(--red); }
+  .sns-list{ overflow-y:auto; padding:.9rem; }
+  .sns-cat{ margin-bottom:1.3rem; }
+  .sns-cat:last-child{ margin-bottom:.3rem; }
+  .sns-cat-label{ font-family:'Space Mono'; font-size:.66rem; font-weight:700; letter-spacing:.1em;
+    color:var(--mind); text-transform:uppercase; margin-bottom:.6rem; padding-left:.1rem; }
+  .sns-cat-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:.6rem; }
+  .sns-box{ display:flex; align-items:center; justify-content:center; text-align:center;
+    background:var(--surface); border:2px solid var(--ink); border-radius:10px; box-shadow:var(--comic-sh-sm);
+    padding:.9rem .6rem; font-size:.8rem; font-weight:700; color:var(--text-dim); min-height:56px; transition:.15s; }
+  .sns-box:active{ background:var(--surface-2); transform:translate(-1px,-1px); box-shadow:var(--comic-sh); }
+  .sns-box.on{ background:var(--red); border-color:var(--ink); color:#fff; }
 
   #floatclose{ position:fixed; left:50%; bottom:1.2rem; z-index:200;
     transform:translate(-50%,10px); background:var(--red); color:#fff; border:2px solid var(--ink);
@@ -843,21 +1083,104 @@
     white-space:nowrap; }
   #floatclose.show{ opacity:1; pointer-events:auto; transform:translate(-50%,0); }
   #floatclose:hover{ background:var(--red-dark); }
+  @media (max-width:900px){
+    #floatclose{ bottom:calc(76px + env(safe-area-inset-bottom,0px) + .7rem); }
+    #floatclose.show{ transform:translate(-50%,0); }
+  }
 </style>
 </head>
 <body>
 
 <header class="hero">
+  <svg class="hero-artwork" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="hArtNebula1" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#e62429" stop-opacity=".38"/>
+        <stop offset="100%" stop-color="#e62429" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="hArtNebula2" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#e8b923" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="#e8b923" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="hArtPortal" cx="50%" cy="50%" r="50%">
+        <stop offset="60%" stop-color="#0a0c14" stop-opacity="0"/>
+        <stop offset="88%" stop-color="#4a90c4" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="#4a90c4" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="920" cy="140" r="260" fill="url(#hArtNebula1)"/>
+    <circle cx="300" cy="380" r="220" fill="url(#hArtNebula2)"/>
+    <g class="hero-orbit-group">
+      <circle cx="960" cy="200" r="120" fill="url(#hArtPortal)" class="hero-portal-ring"/>
+      <circle cx="960" cy="200" r="86" fill="none" stroke="#e8b923" stroke-width="1" stroke-opacity=".35" class="hero-orbit-ring hero-orbit-1"/>
+      <circle cx="960" cy="200" r="150" fill="none" stroke="#4a90c4" stroke-width="1" stroke-opacity=".25" class="hero-orbit-ring hero-orbit-2"/>
+      <circle cx="960" cy="200" r="8" fill="#fff" opacity=".9"/>
+    </g>
+    <g class="hero-stars" fill="#fff">
+      <circle cx="120" cy="90" r="1.6" opacity=".8"/>
+      <circle cx="220" cy="60" r="1.1" opacity=".6"/>
+      <circle cx="60" cy="220" r="1.3" opacity=".7"/>
+      <circle cx="480" cy="40" r="1" opacity=".5"/>
+      <circle cx="700" cy="380" r="1.4" opacity=".65"/>
+      <circle cx="1080" cy="360" r="1.2" opacity=".6"/>
+      <circle cx="1150" cy="120" r="1.5" opacity=".7"/>
+      <circle cx="820" cy="420" r="1" opacity=".5"/>
+      <circle cx="380" cy="200" r="1.2" opacity=".6"/>
+      <circle cx="1000" cy="440" r="1.1" opacity=".55"/>
+    </g>
+  </svg>
   <span class="eyebrow">Marvel Cinematic Universe · unofficial archive</span>
   <h1>MCU大全</h1>
   <p>フェイズ1〜6、インフィニティ・サーガからマルチバース・サーガまで。世界観の解説、作品のつながり、キャラクターの関係性、専門用語、ネタバレ解説まで一望する。</p>
   <div class="stats" id="stats"></div>
 </header>
 
+<section id="modeChoice" class="mode-choice-section">
+  <p class="mode-choice-lead">あなたはMCUについて、どのくらいご存知ですか？</p>
+  <div class="mode-choice-grid">
+    <button class="mode-card" id="modeBeginnerBtn">
+      <span class="mode-card-icon">🔰</span>
+      <span class="mode-card-title">はじめてモード</span>
+      <span class="mode-card-desc">MCUをほとんど知らない・観たことがない方向け。まず何を観ればいいか、迷わずわかります。</span>
+    </button>
+    <button class="mode-card" id="modeFanBtn">
+      <span class="mode-card-icon">⭐</span>
+      <span class="mode-card-title">ファンモード</span>
+      <span class="mode-card-desc">MCUをある程度観ている方向け。58作品・相関図・用語集など、全ての機能を使えます。</span>
+    </button>
+  </div>
+</section>
+<div class="mode-switch-pill-wrap">
+  <button class="mode-switch-pill" id="modeSwitchPill" hidden></button>
+</div>
+
+<section id="beginnerHome" class="beginner-home-section" hidden>
+  <div class="bh-badge">はじめてモード</div>
+  <h2 class="bh-title">MCUを初めて観るなら</h2>
+
+  <div class="bh-whatis">
+    <div class="bh-whatis-label">そもそもMCUとは？</div>
+    <p class="bh-whatis-text">アイアンマンやアベンジャーズなど、たくさんのヒーローが登場する映画・ドラマシリーズのことです。バラバラの作品に見えて、実は全部同じ一つの世界でつながっています。</p>
+  </div>
+
+  <p class="bh-lead">全部観る必要はありません。<br>まずはこの<b>9作品</b>から始めれば、MCUの基本がわかります。</p>
+  <button class="bh-cta" id="bhStartBtn">じゃあ、まずはアイアンマンから観る →</button>
+  <div class="bh-progress" id="bhProgress"></div>
+  <div class="bh-route" id="bhRoute"></div>
+  <div class="bh-complete" id="bhComplete" hidden></div>
+  <div class="bh-secondary">
+    <button data-goto="chars">🦸 キャラクターを知る</button>
+    <button data-goto="glossary">📖 分からない言葉を調べる</button>
+    <button data-goto="cosmology">🌌 MCUの基本を知る</button>
+    <button id="bhAllOrderBtn">🕸️ 作品の前後関係を全部見たい</button>
+  </div>
+</section>
+
 <nav>
   <span class="brand">MCU // ARCHIVE</span>
+  <button id="mobileSearchIcon" aria-label="検索を開く">🔍</button>
   <div class="navsearch" id="navsearch">
-    <input id="globalsearch" placeholder="作品・キャラクター・用語を検索…" autocomplete="off">
+    <input id="globalsearch" placeholder="作品・キャラクター・用語を検索…" aria-label="作品・キャラクター・用語を検索" autocomplete="off">
   </div>
   <div class="navlinks-wrap" id="navlinksWrap">
     <span class="links" id="navlinks">
@@ -887,29 +1210,85 @@
   });
 </script>
 
-<div class="firstvisit">
-  <span class="fv-badge">初めての方へ</span>
-  <p>コンテンツが多いので迷ったら、まず<b>「作品タイムライン」→「レベル別ガイド」→「初心者向け」</b>の9作品から観るのがおすすめです。</p>
-  <button class="fv-btn" id="fvStartBtn">最短ルートを見る →</button>
-</div>
+<section id="nextup" class="nextup-section">
+  <div class="nextup-progress">
+    <div class="nextup-progress-head">
+      <span class="nextup-label">あなたのMCU視聴進捗</span>
+      <span class="nextup-count" id="nextupCount">0 / 58作品</span>
+    </div>
+    <div class="nextup-bar"><div class="nextup-bar-fill" id="nextupBarFill"></div></div>
+    <div class="nextup-phase" id="nextupPhase"></div>
+    <div class="nextup-recent" id="nextupRecent"></div>
+  </div>
+  <div class="nextup-recs-head">🎬 次に観るなら</div>
+  <div class="nextup-recs" id="nextupRecs"></div>
+</section>
 
-<section id="guide">
+<section id="macrotimeline" class="macrotimeline-section fan-only">
+  <div class="shead">
+    <div><span class="tag">Timeline</span><h2>MCUタイムライン</h2></div>
+    <p class="note">すべての物語は、ここにつながっている。フェイズをタップすると該当作品へジャンプします。</p>
+  </div>
+  <div class="mtl-track" id="mtlTrack"></div>
+</section>
+
+<section id="explore" class="explore-section fan-only">
+  <div class="shead">
+    <div><span class="tag">Explore</span><h2>MCUを探索する</h2></div>
+  </div>
+  <div class="explore-grid">
+    <button class="explore-card" data-goto="chars">
+      <svg class="explore-art" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#e8b923" stroke-width="1.6">
+        <circle cx="32" cy="16" r="6"/><circle cx="14" cy="46" r="6"/><circle cx="50" cy="46" r="6"/>
+        <path d="M32 22 L18 41 M32 22 L46 41 M20 46 L44 46"/></g></svg>
+      <div class="explore-card-title">キャラクター</div>
+      <div class="explore-card-desc">ヒーローとヴィランのつながりを探る</div>
+    </button>
+    <button class="explore-card" data-goto="cosmology">
+      <svg class="explore-art" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#4a90c4" stroke-width="1.6">
+        <circle cx="32" cy="32" r="10"/><ellipse cx="32" cy="32" rx="26" ry="10"/><ellipse cx="32" cy="32" rx="10" ry="26"/></g></svg>
+      <div class="explore-card-title">世界観</div>
+      <div class="explore-card-desc">広がり続けるユニバースを理解する</div>
+    </button>
+    <button class="explore-card" data-goto="cross">
+      <svg class="explore-art" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#9d63c4" stroke-width="1.6" stroke-linecap="round">
+        <path d="M8 48 C 20 48, 20 16, 32 16 S 44 48, 56 48"/><circle cx="8" cy="48" r="2.4" fill="#9d63c4"/><circle cx="56" cy="48" r="2.4" fill="#9d63c4" opacity=".4"/></g></svg>
+      <div class="explore-card-title">伏線・つながり</div>
+      <div class="explore-card-desc">まだ回収されていない謎を追う</div>
+    </button>
+    <button class="explore-card" data-goto="glossary">
+      <svg class="explore-art" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#2fa6a0" stroke-width="1.6">
+        <path d="M14 14 h20 v36 h-20 z"/><path d="M34 14 h16 v36 h-16 z"/><path d="M18 22 h12 M18 29 h12 M18 36 h12"/></g></svg>
+      <div class="explore-card-title">用語集</div>
+      <div class="explore-card-desc">知ればもっと面白くなる言葉</div>
+    </button>
+    <button class="explore-card" data-goto="music">
+      <svg class="explore-art" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#e62429" stroke-width="1.8" stroke-linecap="round">
+        <path d="M8 32 L16 22 L24 40 L32 14 L40 46 L48 26 L56 32"/></g></svg>
+      <div class="explore-card-title">サウンドトラック</div>
+      <div class="explore-card-desc">物語を彩るサウンドを探す</div>
+    </button>
+    <button class="explore-card" data-goto="worksgraph">
+      <svg class="explore-art" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#dd7f33" stroke-width="1.6">
+        <circle cx="16" cy="18" r="4"/><circle cx="48" cy="18" r="4"/><circle cx="32" cy="34" r="5"/><circle cx="16" cy="50" r="4"/><circle cx="48" cy="50" r="4"/>
+        <path d="M16 22 L28 31 M48 22 L36 31 M28 37 L18 47 M36 37 L46 47"/></g></svg>
+      <div class="explore-card-title">相関図</div>
+      <div class="explore-card-desc">作品と人物のつながりを可視化</div>
+    </button>
+  </div>
+</section>
+
+<section id="todaymcu" class="todaymcu-section fan-only">
+  <div class="shead">
+    <div><span class="tag">Today</span><h2>今日のMCU</h2></div>
+    <p class="note" id="todayDateNote"></p>
+  </div>
+  <div class="today-grid" id="todayGrid"></div>
+</section>
+
+<section id="guide" class="fan-only">
   <div class="shead">
     <div><span class="tag">00 — Guide</span><h2>このサイトの使い方</h2></div>
-  </div>
-  <div class="feature-links">
-    <span class="feature-links-label">全機能：</span>
-    <button data-goto="works">作品タイムライン</button>
-    <button data-goto="cosmology">世界観解説</button>
-    <button data-goto="mvbranch">マルチバース分岐図</button>
-    <button data-goto="codex">図鑑</button>
-    <button data-goto="music">サウンドトラック</button>
-    <button data-goto="chars">キャラクター相関図</button>
-    <button data-goto="worksgraph">作品相関図</button>
-    <button data-goto="cross">作品同士のつながり</button>
-    <button data-goto="legacy">Xメン・レガシー</button>
-    <button data-goto="tierlist">マイTier表メーカー</button>
-    <button data-goto="glossary">用語集</button>
   </div>
   <p class="note" style="margin-bottom:1rem">機能が多いので、知っておくと便利なポイントをまとめました。</p>
   <button class="guide-toggle" id="guideToggle">
@@ -961,7 +1340,7 @@
 </section>
 
 <script>
-  document.querySelectorAll(".feature-links button[data-goto]").forEach(function(btn){
+  document.querySelectorAll(".explore-card[data-goto]").forEach(function(btn){
     btn.addEventListener("click", function(){
       var target = document.getElementById(btn.dataset.goto);
       if(target) target.scrollIntoView({ behavior:"smooth", block:"start" });
@@ -1151,7 +1530,7 @@
   <div id="focusview">
     <p class="note" style="margin-bottom:1rem">気になるキャラクターを1人選ぶと、その人を中心に「誰とどんな関係か」を分かりやすく表示します。</p>
     <div class="focus-picker-wrap">
-      <input id="focusSearch" class="focus-search" placeholder="キャラクター名で絞り込み…" autocomplete="off">
+      <input id="focusSearch" class="focus-search" placeholder="キャラクター名で絞り込み…" aria-label="キャラクター名で絞り込み" autocomplete="off">
       <div class="tabs wrap" id="focusAffFilter" style="margin-bottom:.9rem"></div>
       <div class="focus-picker" id="focusPicker"></div>
     </div>
@@ -1178,7 +1557,7 @@
   <div id="wgfocusview">
     <p class="note" style="margin-bottom:1rem">気になる作品を1つ選ぶと、「その前に観るべき作品」と「その後につながる作品」を分かりやすく表示します。</p>
     <div class="focus-picker-wrap">
-      <input id="wgFocusSearch" class="focus-search" placeholder="作品名で絞り込み…" autocomplete="off">
+      <input id="wgFocusSearch" class="focus-search" placeholder="作品名で絞り込み…" aria-label="作品名で絞り込み" autocomplete="off">
       <div class="tabs wrap" id="wgFocusPhaseFilter" style="margin-bottom:.9rem"></div>
       <div class="focus-picker" id="wgFocusPicker"></div>
     </div>
@@ -1294,7 +1673,7 @@
     <div><span class="tag">11 — Glossary</span><h2>用語集</h2></div>
     <p class="note">カテゴリを開いて閲覧。作品説明の下線付き用語からも直接ジャンプできます。</p>
   </div>
-  <input class="gsearch" id="gsearch" placeholder="用語を検索…">
+  <input class="gsearch" id="gsearch" placeholder="用語を検索…" aria-label="用語を検索">
   <div id="gbody"></div>
 </section>
 
@@ -1317,7 +1696,7 @@
   <button data-snav="tierlist" data-snav-label="マイTier表メーカー"></button>
   <button data-snav="glossary" data-snav-label="用語集"></button>
 </nav>
-<button id="sectionNavPill" aria-label="セクション一覧を開く">📍 <span id="sectionNavPillLabel">現在地</span></button>
+<button id="sectionNavPill" aria-label="セクション一覧を開く">📍 <span id="sectionNavPillLabel">現在地</span><span class="snp-chevron">▴</span></button>
 <div id="sectionNavSheet">
   <div class="sns-backdrop"></div>
   <div class="sns-panel">
@@ -1325,6 +1704,13 @@
     <div class="sns-list" id="sectionNavSheetList"></div>
   </div>
 </div>
+<nav id="mobileTabBar" aria-label="モバイルナビゲーション">
+  <button data-mtab="home"><span class="mtab-icon">⌂</span><span class="mtab-label">ホーム</span></button>
+  <button data-mtab="watch"><span class="mtab-icon">▶</span><span class="mtab-label">観る</span></button>
+  <button data-mtab="search"><span class="mtab-icon">⌕</span><span class="mtab-label">探す</span></button>
+  <button data-mtab="mymcu"><span class="mtab-icon">✓</span><span class="mtab-label">マイMCU</span></button>
+  <button data-mtab="more"><span class="mtab-icon">☰</span><span class="mtab-label">メニュー</span></button>
+</nav>
 <button id="totop" aria-label="トップに戻る">▲</button>
 <button id="floatclose" aria-label="閉じる">✕ 閉じる</button>
 <script>
@@ -1335,11 +1721,19 @@
     var pillLabel = document.getElementById("sectionNavPillLabel");
     var sheet = document.getElementById("sectionNavSheet");
     var sheetList = document.getElementById("sectionNavSheetList");
+    var pillAttnShown = false;
     window.addEventListener("scroll", function(){
       var show = window.scrollY > 900;
       btn.classList.toggle("show", show);
       if(snav) snav.classList.toggle("show", show);
-      if(pill) pill.classList.toggle("show", show);
+      if(pill){
+        pill.classList.toggle("show", show);
+        if(show && !pillAttnShown){
+          pillAttnShown = true;
+          pill.classList.add("attn");
+          setTimeout(function(){ pill.classList.remove("attn"); }, 3300);
+        }
+      }
     });
     btn.addEventListener("click", function(){
       window.scrollTo({ top:0, behavior:"smooth" });
@@ -1357,11 +1751,21 @@
         });
       });
 
-      // モバイル版：現在地ピル＋タップで開くセクション一覧シート
+      // モバイル版：現在地ピル＋タップで開くカテゴリ分けメニューシート
       var sheetButtons = {};
+      var MENU_LABELS = Object.assign({ todaymcu:"今日のMCU", macrotimeline:"MCUタイムライン", explore:"MCUを探索する" }, snavLabels);
+      var MENU_CATEGORIES = [
+        { label:"MCUを探す", items:["works","codex","cosmology","glossary"] },
+        { label:"MCUのつながり", items:["chars","worksgraph","cross","mvbranch"] },
+        { label:"もっと楽しむ", items:["music","legacy","tierlist"] },
+        { label:"その他", items:["guide","macrotimeline","explore","todaymcu"] }
+      ];
       if(sheetList){
-        sheetList.innerHTML = Object.keys(snavLabels).map(function(id){
-          return '<button data-snav-sheet="' + id + '"><span class="sns-dot"></span>' + snavLabels[id] + '</button>';
+        sheetList.innerHTML = MENU_CATEGORIES.map(function(cat){
+          var boxes = cat.items.filter(function(id){ return MENU_LABELS[id]; }).map(function(id){
+            return '<button class="sns-box" data-snav-sheet="' + id + '">' + MENU_LABELS[id] + '</button>';
+          }).join("");
+          return '<div class="sns-cat"><div class="sns-cat-label">' + cat.label + '</div><div class="sns-cat-grid">' + boxes + '</div></div>';
         }).join("");
         sheetList.querySelectorAll("[data-snav-sheet]").forEach(function(b){
           sheetButtons[b.dataset.snavSheet] = b;
@@ -1372,12 +1776,50 @@
           });
         });
       }
-      function openSheet(){ if(sheet) sheet.classList.add("open"); }
-      function closeSheet(){ if(sheet) sheet.classList.remove("open"); }
+      function openSheet(){ if(sheet) sheet.classList.add("open"); if(pill){ pill.classList.add("open"); pill.classList.remove("attn"); } }
+      function closeSheet(){ if(sheet) sheet.classList.remove("open"); if(pill) pill.classList.remove("open"); }
       if(pill) pill.addEventListener("click", openSheet);
       if(sheet){
         sheet.querySelector(".sns-backdrop").addEventListener("click", closeSheet);
         document.getElementById("sectionNavSheetClose").addEventListener("click", closeSheet);
+      }
+
+      // モバイル下部固定タブバー
+      var mtabHome = document.querySelector('#mobileTabBar [data-mtab="home"]');
+      var mtabWatch = document.querySelector('#mobileTabBar [data-mtab="watch"]');
+      var mtabSearch = document.querySelector('#mobileTabBar [data-mtab="search"]');
+      var mtabMyMcu = document.querySelector('#mobileTabBar [data-mtab="mymcu"]');
+      var mtabMore = document.querySelector('#mobileTabBar [data-mtab="more"]');
+      if(mtabHome) mtabHome.addEventListener("click", function(){
+        window.scrollTo({ top:0, behavior:"smooth" });
+      });
+      if(mtabWatch) mtabWatch.addEventListener("click", function(){
+        var t = document.querySelector("#nextup .nextup-recs-head") || document.getElementById("nextup");
+        if(t) t.scrollIntoView({ behavior:"smooth", block:"start" });
+      });
+      if(mtabSearch) mtabSearch.addEventListener("click", function(){
+        window.scrollTo({ top:0, behavior:"smooth" });
+        var navEl = document.querySelector("nav");
+        setTimeout(function(){
+          if(navEl) navEl.classList.add("search-open");
+          var inp = document.getElementById("globalsearch");
+          if(inp) inp.focus();
+        }, 350);
+      });
+      if(mtabMyMcu) mtabMyMcu.addEventListener("click", function(){
+        var t = document.querySelector("#nextup .nextup-progress") || document.getElementById("nextup");
+        if(t) t.scrollIntoView({ behavior:"smooth", block:"start" });
+      });
+      if(mtabMore) mtabMore.addEventListener("click", openSheet);
+
+      if(mtabMyMcu && "IntersectionObserver" in window){
+        var nextupEl = document.getElementById("nextup");
+        if(nextupEl){
+          var ioProgress = new IntersectionObserver(function(entries){
+            entries.forEach(function(en){ mtabMyMcu.classList.toggle("on", en.isIntersecting); });
+          }, { rootMargin: "-15% 0px -70% 0px", threshold: 0 });
+          ioProgress.observe(nextupEl);
+        }
       }
 
       var sections = Object.keys(snavButtons).map(function(id){ return document.getElementById(id); }).filter(Boolean);
@@ -1401,6 +1843,7 @@
             sheetButtons[id].classList.toggle("on", id === activeId);
           });
           if(pillLabel) pillLabel.textContent = snavLabels[activeId] || "現在地";
+          if(mtabWatch) mtabWatch.classList.toggle("on", activeId === "works");
         }, { rootMargin: "-15% 0px -70% 0px", threshold: 0 });
         sections.forEach(function(s){ io.observe(s); });
       }
@@ -1601,6 +2044,95 @@ const AFF = {
 /* ============================================================
    MOVIES / SERIES  — [[term_id|表示]] で用語集にリンク
    ============================================================ */
+/* ============================================================
+   視聴前に知っておきたいこと — ネタバレなしの前提知識メモ
+   （全58作品のうち、特に前提知識が要る作品から順次追加中）
+   ============================================================ */
+const PREWATCH = {
+  iron_man: [
+    "トニー・スタークは天才発明家で、父の代から続く兵器製造会社「スターク・インダストリーズ」を率いています。",
+    "MCU全体の起点となる作品です。予備知識なしで観始められます。"
+  ],
+  avengers1: [
+    "トニー・スターク（アイアンマン）、スティーブ・ロジャース（キャプテン・アメリカ）、ソー、ブルース・バナー（ハルク）は、それぞれ単独作品で既に紹介されています。",
+    "ソーの義弟ロキは『マイティ・ソー』でアスガルドの王位を狙って敗北し、宇宙へ落下したまま行方不明でした。",
+    "ナターシャ・ロマノフ（ブラック・ウィドウ）とニック・フューリーは『アイアンマン2』から続投しているキャラクターです。"
+  ],
+  avengers2: [
+    "『アベンジャーズ』の戦いを経て、チームは正式な組織として活動しています。",
+    "ソコヴィアという東欧の架空国家が、本作の主要な舞台の一つになります。",
+    "ワンダとピエトロのマキシモフ兄妹は本作で初登場するキャラクターです。"
+  ],
+  civilwar: [
+    "『アベンジャーズ／エイジ・オブ・ウルトロン』でのソコヴィアでの被害により、各国政府がヒーロー活動の規制を検討し始めています。",
+    "バッキー・バーンズ（ウィンター・ソルジャー）はスティーブの幼馴染で、かつて洗脳され暗殺者として利用されていた過去があります。",
+    "トニーとスティーブは、それまで概ね良好な同僚関係を築いていました。"
+  ],
+  infinitywar: [
+    "インフィニティ・ストーンと呼ばれる6つの石が、これまでの複数の作品に散らばって登場してきました（スペース・マインド・リアリティ・パワー・タイム・ソウル）。",
+    "『シビル・ウォー』での対立を経て、アベンジャーズは分裂したままの状態です。",
+    "ガーディアンズ・オブ・ギャラクシーやワカンダのキャラクターたちも本作で本格的に合流します。"
+  ],
+  endgame: [
+    "前作『インフィニティ・ウォー』のラストで、サノスが指を鳴らし宇宙の生命の半分が消滅する「スナップ」が起きました。",
+    "本作はその直接的な後日談として展開します。前作を観ていないと状況が全く分かりません。"
+  ],
+  ragnarok: [
+    "ソーはこれまで『マイティ・ソー』『ダーク・ワールド』『アベンジャーズ』シリーズに登場し、アスガルドの王位継承者です。",
+    "ロキは義弟であり、これまで幾度となくソーを裏切ったり協力したりを繰り返してきた複雑な関係です。",
+    "本作はシリーズの中でも特にコメディ色が強いトーンに転換しています。"
+  ],
+  blackpanther: [
+    "ティ・チャラ（ブラックパンサー）は『シビル・ウォー』で初登場し、父の死を受けてワカンダの新国王として即位したばかりです。",
+    "ワカンダは表向き発展途上国を装いながら、実際はヴィブラニウムの力で世界最高峰の科学技術を持つ隠された国家です。"
+  ],
+  captmarvel: [
+    "物語は1995年が舞台で、MCU本編（現代）より前の時代を描く前日譚です。",
+    "ニック・フューリーが本作で若い頃の姿で登場し、後の『アベンジャーズ』に繋がる伏線が描かれます。"
+  ],
+  gotg2: [
+    "前作でガーディアンズは寄せ集めのチームとして結成され、宇宙の危機を救いました。",
+    "ピーター・クイル（スターロード）は地球生まれの人間で、父親が誰なのか長年謎とされてきました。"
+  ],
+  gotg3: [
+    "ロケットの過去や出自については、これまでのシリーズでは断片的にしか語られていません。",
+    "『アベンジャーズ／エンドゲーム』以降のガーディアンズの活動を描く作品です。"
+  ],
+  drstrange2: [
+    "ワンダ（スカーレット・ウィッチ）は『ワンダヴィジョン』で息子たちを失う出来事を経験し、大きな悲しみを抱えています。",
+    "『ロキ』シーズン1のラストで、マルチバース（並行宇宙）の存在が明確になりました。",
+    "ドクター・ストレンジは魔術と時間・次元操作を扱う魔術師です。"
+  ],
+  wakandaforever: [
+    "前作の主人公ティ・チャラ（ブラックパンサー）を演じた俳優チャドウィック・ボーズマンの逝去を受け、その死を作品内でも描いています。",
+    "シュリはティ・チャラの妹で、ワカンダの科学技術を支える天才です。"
+  ],
+  thor4: [
+    "ソーは『エンドゲーム』以降、ガーディアンズ・オブ・ギャラクシーと共に旅をしていました。",
+    "ジェーン・フォスターはソーのかつての恋人で、『マイティ・ソー』『ダーク・ワールド』に登場した天体物理学者です。"
+  ],
+  shangchi: [
+    "テン・リングスという古代の組織と、それを率いる父の存在が物語の中心になります。",
+    "他のMCU作品との直接的な前提知識は少なく、単独で楽しめる作品です。"
+  ],
+  antman3: [
+    "スコット・ラングは『シビル・ウォー』『エンドゲーム』に参戦した経験を持ち、量子世界とタイムトラベルに縁があります。",
+    "『ロキ』シーズン1のラストで示唆された「カーン」という存在が、本作で本格的に登場します。"
+  ],
+  wandavision: [
+    "ワンダ（スカーレット・ウィッチ）とヴィジョンは『エイジ・オブ・ウルトロン』で出会い恋人関係になりましたが、『インフィニティ・ウォー』でヴィジョンは命を落としています。",
+    "本作はその後日談で、一見普通のホームコメディ風の演出で始まりますが、次第に不穏な様子が明らかになっていきます。"
+  ],
+  loki_s1: [
+    "本作の主人公ロキは、『アベンジャーズ／エンドゲーム』のタイムトラベル中に、過去のロキ（2012年当時）がテッセラクトを奪って逃走した「分岐した個体」です。",
+    "つまり本編で描かれる最終的なロキとは別の時間軸のロキが主人公になります。"
+  ],
+  deadpool3: [
+    "デッドプールとウルヴァリンは、MCUとは別の作品世界（20世紀フォックス版Xメンシリーズ）のキャラクターです。",
+    "本作でMCUのマルチバースと接続される、シリーズの転換点的な作品です。"
+  ]
+};
+
 const MOVIES = [
   // ---------------- PHASE 1 ----------------
   {id:"iron_man", title:"アイアンマン", year:2008, phase:1, type:"movie",
@@ -3259,6 +3791,337 @@ function updateWatchStat(){
 }
 
 /* ============================================================
+   次に観るなら？ — 視聴進捗と前提条件から機械的に算出（新規データの捏造なし）
+   ============================================================ */
+function renderNextUp(){
+  const countEl = $("#nextupCount");
+  const fillEl = $("#nextupBarFill");
+  const phaseEl = $("#nextupPhase");
+  const recsEl = $("#nextupRecs");
+  if(!countEl || !recsEl) return;
+
+  const total = MOVIES.length;
+  const watchedN = watchedSet.size;
+  countEl.textContent = `${watchedN} / ${total}作品`;
+  fillEl.style.width = (total ? (watchedN/total*100) : 0) + "%";
+
+  // 視聴済み作品が含まれる最大フェイズを「現在地」として表示
+  const watchedPhases = MOVIES.filter(m=> isWatched(m.id)).map(m=> m.phase);
+  if(watchedPhases.length){
+    const maxPhase = Math.max(...watchedPhases);
+    phaseEl.textContent = `現在地：${PHASES[maxPhase].label}（${PHASES[maxPhase].saga}）まで視聴済み`;
+  } else {
+    phaseEl.textContent = "まだ視聴済み作品が登録されていません。";
+  }
+
+  // 最近観た作品（Setは追加順を保持するため、末尾＝直近視聴として利用）
+  const recentEl = $("#nextupRecent");
+  if(recentEl){
+    const recentIds = [...watchedSet].reverse().slice(0,5);
+    const recentMovies = recentIds.map(id=> MOVIES.find(m=>m.id===id)).filter(Boolean);
+    recentEl.innerHTML = recentMovies.length
+      ? `<span class="nextup-recent-label">📺 最近観た作品：</span>` + recentMovies.map(m=>
+          `<button class="nextup-recent-chip" data-recent-w="${m.id}">${m.title}</button>`).join("")
+      : "";
+    recentEl.querySelectorAll("[data-recent-w]").forEach(b=>{
+      b.onclick = ()=>{ const m = MOVIES.find(x=>x.id===b.dataset.recentW); if(m) openModal(m); };
+    });
+  }
+
+  // 未視聴かつ「必須」前提作品を全て視聴済みの作品を、公開順に抽出
+  const unwatched = MOVIES.filter(m=> !isWatched(m.id));
+  const ready = unwatched.filter(m=>{
+    const musts = (m.prereq||[]).filter(p=> p.level==="must");
+    return musts.every(p=> isWatched(p.id));
+  });
+
+  if(!unwatched.length){
+    recsEl.innerHTML = `<div class="nextup-empty">🎉 全${total}作品を視聴済みです！お疲れ様でした。</div>`;
+    return;
+  }
+  if(!ready.length){
+    recsEl.innerHTML = `<div class="nextup-empty">前提作品が視聴済みの未視聴作品が見つかりませんでした。「作品タイムライン」から気になる作品を探してみてください。</div>`;
+    return;
+  }
+
+  const picks = ready.slice(0, 3);
+  recsEl.innerHTML = picks.map(m=>{
+    const musts = (m.prereq||[]).filter(p=> p.level==="must");
+    let reason;
+    if(!musts.length){
+      reason = "前提作品なしで単独視聴が可能です。";
+    } else {
+      const names = musts.map(p=>{ const t = MOVIES.find(x=>x.id===p.id); return t ? t.title : null; }).filter(Boolean);
+      reason = `前提作品「${names.join("」「")}」を視聴済みのため、次に観られます。`;
+    }
+    return `<button class="nextup-card" data-nextup-w="${m.id}" style="--pc:${PHASES[m.phase].hex}">
+      <div class="nextup-card-tag">${PHASES[m.phase].label} ・ ${m.year}</div>
+      <div class="nextup-card-title">${m.title}</div>
+      <div class="nextup-card-reason">${reason}</div>
+    </button>`;
+  }).join("");
+  recsEl.querySelectorAll("[data-nextup-w]").forEach(b=>{
+    b.onclick = ()=>{ const m = MOVIES.find(x=>x.id===b.dataset.nextupW); if(m) openModal(m); };
+  });
+}
+renderNextUp();
+
+/* ============================================================
+   MCUタイムライン（俯瞰マクロビジュアル）
+   ============================================================ */
+function renderMacroTimeline(){
+  const track = $("#mtlTrack");
+  if(!track) return;
+  const phaseKeys = Object.keys(PHASES).sort((a,b)=>a-b);
+  track.innerHTML = phaseKeys.map(pk=>{
+    const ph = PHASES[pk];
+    const list = MOVIES.filter(m=> String(m.phase)===pk);
+    if(!list.length) return "";
+    const years = list.map(m=>m.year).filter(y=> typeof y === "number");
+    const yearRange = years.length ? (Math.min(...years) === Math.max(...years) ? `${Math.min(...years)}` : `${Math.min(...years)} – ${Math.max(...years)}`) : "";
+    const watchedN = list.filter(m=> isWatched(m.id)).length;
+    const done = watchedN === list.length;
+    return `<div class="mtl-node${done?" done":""}" style="--nc:${ph.hex}">
+      <button data-phase-jump="${pk}">
+        <div class="mtl-dot">${done ? "✓" : pk}</div>
+        <div class="mtl-phase-label">${ph.label}</div>
+        <div class="mtl-years">${yearRange}</div>
+        <div class="mtl-saga">${ph.saga}</div>
+      </button>
+    </div>`;
+  }).join("");
+  track.querySelectorAll("[data-phase-jump]").forEach(b=>{
+    b.onclick = ()=>{
+      orderMode = "release";
+      renderOrderTabs();
+      renderRails();
+      requestAnimationFrame(()=>{
+        const rail = document.getElementById("phase-rail-" + b.dataset.phaseJump);
+        if(rail) rail.scrollIntoView({ behavior:"smooth", block:"start" });
+        else document.getElementById("works").scrollIntoView({ behavior:"smooth", block:"start" });
+      });
+    };
+  });
+  attachScrollArrows(track.parentElement, "#mtlTrack");
+}
+renderMacroTimeline();
+
+/* ============================================================
+   はじめてモード / ファンモード — UX 2.0 Phase 1
+   ============================================================ */
+(function(){
+  var STORAGE_KEY = "mcu_sitemode_v1";
+  var mode = null;
+  try{ mode = localStorage.getItem(STORAGE_KEY); }catch(e){}
+
+  function saveMode(m){
+    mode = m;
+    try{ localStorage.setItem(STORAGE_KEY, m); }catch(e){}
+  }
+  function applyMode(){
+    var body = document.body;
+    var modeChoice = document.getElementById("modeChoice");
+    var beginnerHome = document.getElementById("beginnerHome");
+    var switchPill = document.getElementById("modeSwitchPill");
+    if(mode === "beginner"){
+      body.classList.add("beginner-mode");
+      if(modeChoice) modeChoice.hidden = true;
+      if(beginnerHome) beginnerHome.hidden = false;
+      if(switchPill){ switchPill.hidden = false; switchPill.textContent = "⭐ ファンモードに切り替える"; }
+      renderBeginnerProgress();
+      renderBeginnerRoute();
+    } else if(mode === "fan"){
+      body.classList.remove("beginner-mode");
+      if(modeChoice) modeChoice.hidden = true;
+      if(beginnerHome) beginnerHome.hidden = true;
+      if(switchPill){ switchPill.hidden = false; switchPill.textContent = "🔰 はじめてモードに切り替える"; }
+    } else {
+      // 未選択：初回訪問者には選択を促す。ただし既に視聴履歴があるならファン寄りと判断し選択UIのみ出す
+      body.classList.remove("beginner-mode");
+      if(modeChoice) modeChoice.hidden = false;
+      if(beginnerHome) beginnerHome.hidden = true;
+      if(switchPill) switchPill.hidden = true;
+    }
+  }
+  function renderBeginnerProgress(){
+    var el = document.getElementById("bhProgress");
+    if(!el) return;
+    var watchedN = TIER_BEGINNER.filter(function(id){ return isWatched(id); }).length;
+    el.textContent = watchedN > 0
+      ? "初心者ルート " + watchedN + " / " + TIER_BEGINNER.length + " 話まで視聴済み"
+      : "";
+  }
+  function renderBeginnerRoute(){
+    var wrap = document.getElementById("bhRoute");
+    if(!wrap) return;
+    var startBtn = document.getElementById("bhStartBtn");
+    var completeEl = document.getElementById("bhComplete");
+    if(startBtn){
+      var nextUnwatched = TIER_BEGINNER.find(function(id){ return !isWatched(id); });
+      if(nextUnwatched){
+        var nm = MOVIES.find(function(x){ return x.id === nextUnwatched; });
+        var isFirst = nextUnwatched === TIER_BEGINNER[0];
+        startBtn.hidden = false;
+        startBtn.textContent = isFirst
+          ? "じゃあ、まずは" + nm.title + "から観る →"
+          : "続きの" + nm.title + "を観る →";
+        if(completeEl) completeEl.hidden = true;
+      } else {
+        startBtn.hidden = true;
+        if(completeEl){
+          completeEl.hidden = false;
+          completeEl.innerHTML =
+            '<div class="bh-complete-badge">🎉 9作品、見終えました！</div>' +
+            '<p class="bh-complete-text">MCUの基本はもうバッチリです。ここからは、観たい深さを選べます。</p>' +
+            '<div class="bh-complete-actions">' +
+              '<button id="bhGoIntermediate" class="bh-complete-btn">中級者向け作品も観る（+' + TIER_INTERMEDIATE_ADD.length + '作品）→</button>' +
+              '<button id="bhGoFan" class="bh-complete-btn bh-complete-btn-ghost">全58作品・相関図を使いこなす →</button>' +
+            '</div>';
+          var goInter = document.getElementById("bhGoIntermediate");
+          if(goInter) goInter.onclick = function(){
+            orderMode = "tier";
+            tierSelected = "intermediate";
+            renderOrderTabs();
+            if(typeof renderTierTabs === "function") renderTierTabs();
+            renderRails();
+            document.getElementById("works").scrollIntoView({ behavior:"smooth", block:"start" });
+          };
+          var goFan = document.getElementById("bhGoFan");
+          if(goFan) goFan.onclick = function(){
+            saveMode("fan");
+            applyMode();
+            window.scrollTo({ top:0, behavior:"smooth" });
+          };
+        }
+      }
+    }
+    wrap.innerHTML = TIER_BEGINNER.map(function(id, i){
+      var m = MOVIES.find(function(x){ return x.id === id; });
+      if(!m) return "";
+      var whyRaw = (PREWATCH[id] && PREWATCH[id][0]) || m.summary;
+      var whyPlain = plain(whyRaw);
+      var why = whyPlain.length > 52 ? escapeHtml(whyPlain.slice(0,50) + "…") : parseTerms(whyRaw);
+      var watched = isWatched(id);
+      return '<div class="bh-step' + (watched ? ' bh-step-done' : '') + '">' +
+        '<div class="bh-step-num">' + (watched ? '✓' : String(i+1).padStart(2,'0')) + '</div>' +
+        '<div class="bh-step-body">' +
+          '<button class="bh-step-main" data-bh-w="' + id + '">' +
+            '<div class="bh-step-meta">' + m.year + ' ・ ' + TYPES[m.type] + '</div>' +
+            '<div class="bh-step-title">' + m.title + '</div>' +
+          '</button>' +
+          '<div class="bh-step-why">' + why + '</div>' +
+          '<label class="bh-step-watch"><input type="checkbox" data-bh-cb="' + id + '"' + (watched?' checked':'') + '><span>視聴済み</span></label>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+    bindTerms(wrap);
+    wrap.querySelectorAll("[data-bh-w]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var m = MOVIES.find(function(x){ return x.id === b.dataset.bhW; });
+        if(m) openModal(m);
+      });
+    });
+    wrap.querySelectorAll("[data-bh-cb]").forEach(function(cb){
+      cb.addEventListener("change", function(){
+        toggleWatched(cb.dataset.bhCb);
+        renderBeginnerRoute();
+        renderBeginnerProgress();
+        if(typeof renderNextUp === "function") renderNextUp();
+        if(typeof renderMacroTimeline === "function") renderMacroTimeline();
+        if(typeof renderRails === "function") renderRails();
+      });
+    });
+  }
+
+  var beginnerBtn = document.getElementById("modeBeginnerBtn");
+  var fanBtn = document.getElementById("modeFanBtn");
+  var switchPill = document.getElementById("modeSwitchPill");
+  var bhStartBtn = document.getElementById("bhStartBtn");
+
+  if(beginnerBtn) beginnerBtn.addEventListener("click", function(){ saveMode("beginner"); applyMode(); });
+  if(fanBtn) fanBtn.addEventListener("click", function(){ saveMode("fan"); applyMode(); });
+  if(switchPill) switchPill.addEventListener("click", function(){
+    saveMode(mode === "beginner" ? "fan" : "beginner");
+    applyMode();
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+  if(bhStartBtn) bhStartBtn.addEventListener("click", function(){
+    var nextId = TIER_BEGINNER.find(function(id){ return !isWatched(id); }) || TIER_BEGINNER[0];
+    var m = MOVIES.find(function(x){ return x.id === nextId; });
+    if(m && typeof openModal === "function") openModal(m);
+  });
+  document.querySelectorAll('.bh-secondary [data-goto]').forEach(function(b){
+    b.addEventListener("click", function(){
+      var t = document.getElementById(b.dataset.goto);
+      if(t) t.scrollIntoView({ behavior:"smooth", block:"start" });
+    });
+  });
+  var allOrderBtn = document.getElementById("bhAllOrderBtn");
+  if(allOrderBtn) allOrderBtn.addEventListener("click", function(){
+    saveMode("fan");
+    applyMode();
+    if(typeof wgView !== "undefined"){
+      wgView = "focus";
+      if(typeof renderWgViewTabs === "function") renderWgViewTabs();
+      if(typeof wgApplyView === "function") wgApplyView();
+    }
+    requestAnimationFrame(function(){
+      var wg = document.getElementById("worksgraph");
+      if(wg) wg.scrollIntoView({ behavior:"smooth", block:"start" });
+    });
+  });
+
+  applyMode();
+  window.__mcuApplyMode = applyMode;
+  window.__mcuRenderBeginnerProgress = renderBeginnerProgress;
+})();
+
+/* ============================================================
+   今日のMCU — 日付をシードにした日替わりピックアップ（既存データのみ使用）
+   ============================================================ */
+function renderTodayMcu(){
+  const grid = $("#todayGrid");
+  const dateNote = $("#todayDateNote");
+  if(!grid) return;
+  const now = new Date();
+  if(dateNote) dateNote.textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日のピックアップ（日替わり）`;
+  const start = new Date(now.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((now - start) / 86400000);
+
+  const movie = MOVIES[dayOfYear % MOVIES.length];
+  const char = nodes[(dayOfYear * 7) % nodes.length];
+  const termEntries = Object.entries(TERMS);
+  const [termId, term] = termEntries[(dayOfYear * 13) % termEntries.length];
+  const charAff = AFF[CHAR_AFF[char.id]];
+
+  grid.innerHTML = `
+    <button class="today-card" data-today-w="${movie.id}" style="--tc:${PHASES[movie.phase].hex}">
+      <div class="today-card-eyebrow">🎬 今日の作品</div>
+      <div class="today-card-title">${movie.title}</div>
+      <div class="today-card-sub">${PHASES[movie.phase].label} ・ ${movie.year}</div>
+    </button>
+    <button class="today-card" data-today-c="${char.id}" style="--tc:${charAff.hex}">
+      <div class="today-card-eyebrow">🦸 今日のキャラクター</div>
+      <div class="today-card-title">${avatar(char.id,28)}${char.name.split("／")[0]}</div>
+      <div class="today-card-sub">${charAff.label}</div>
+    </button>
+    <button class="today-card" data-today-t="${termId}" style="--tc:var(--mind)">
+      <div class="today-card-eyebrow">📖 今日の用語</div>
+      <div class="today-card-title">${term.label}</div>
+      <div class="today-card-sub">${escapeHtml(plain(term.def)).slice(0,42)}…</div>
+    </button>`;
+  grid.querySelectorAll("[data-today-w]").forEach(b=>{
+    b.onclick = ()=>{ const m = MOVIES.find(x=>x.id===b.dataset.todayW); if(m) openModal(m); };
+  });
+  grid.querySelectorAll("[data-today-c]").forEach(b=>{
+    b.onclick = ()=>{ const n = nodes.find(x=>x.id===b.dataset.todayC); if(n){ focusNode(n,true); openPanel(n); } };
+  });
+  grid.querySelectorAll("[data-today-t]").forEach(b=>{
+    b.onclick = ()=> showTermPopup(b.dataset.todayT);
+  });
+}
+
+/* ============================================================
    WORKS — release-order phase rails / story-chronology eras
    ============================================================ */
 const ERAS = [
@@ -3276,7 +4139,9 @@ const ERAS = [
 ];
 
 let typeFilter = "all";
-let orderMode = "release";
+let orderMode = (function(){
+  try{ return localStorage.getItem("mcu_sitemode_v1") === "beginner" ? "tier" : "release"; }catch(e){ return "release"; }
+})();
 const TYPE_TABS = { all:"すべて", movie:"映画", series:"ドラマ／アニメ" };
 
 function renderTabs(){
@@ -3315,7 +4180,9 @@ $("#ordertabs").addEventListener("click", function(e){
   renderOrderTabs();
   renderRails();
 });
-let tierSelected = "all";
+let tierSelected = (function(){
+  try{ return localStorage.getItem("mcu_sitemode_v1") === "beginner" ? "beginner" : "all"; }catch(e){ return "all"; }
+})();
 function renderTierTabs(){
   const tierCountFiltered = k => {
     const ids = new Set(tierList(k));
@@ -3412,6 +4279,9 @@ function buildCard(m, badgeColor, badgeLabel, isNew){
   cb.addEventListener("change", ()=>{
     toggleWatched(m.id);
     b.classList.toggle("watched", isWatched(m.id));
+    if(typeof renderNextUp === "function") renderNextUp();
+    if(typeof renderMacroTimeline === "function") renderMacroTimeline();
+    if(window.__mcuRenderBeginnerProgress) window.__mcuRenderBeginnerProgress();
     if(isWatched(m.id) && typeof spawnCelebrationBurst === "function"){
       const r = cb.getBoundingClientRect();
       spawnCelebrationBurst(r.left + r.width/2, r.top + r.height/2);
@@ -3439,6 +4309,7 @@ function renderRails(){
       if(!list.length) return;
       const rail = document.createElement("div");
       rail.className = "rail";
+      rail.id = "phase-rail-" + pk;
       rail.innerHTML = `
         <div class="rail-head">
           <span class="bar" style="background:${ph.hex}"></span>
@@ -3574,6 +4445,35 @@ function renderRails(){
     });
   }
   updateWatchStat();
+  attachScrollArrows(wrap);
+}
+function attachScrollArrows(root, selector){
+  selector = selector || ".rail-track";
+  root.querySelectorAll(selector).forEach(track=>{
+    if(track.parentElement.classList.contains("rail-scroll-wrap")) return; // 既に付与済み
+    const wrapEl = document.createElement("div");
+    wrapEl.className = "rail-scroll-wrap";
+    track.parentElement.insertBefore(wrapEl, track);
+    wrapEl.appendChild(track);
+    const leftBtn = document.createElement("button");
+    leftBtn.className = "rail-arrow rail-arrow-left";
+    leftBtn.setAttribute("aria-label", "左へスクロール");
+    leftBtn.innerHTML = "‹";
+    const rightBtn = document.createElement("button");
+    rightBtn.className = "rail-arrow rail-arrow-right";
+    rightBtn.setAttribute("aria-label", "右へスクロール");
+    rightBtn.innerHTML = "›";
+    wrapEl.appendChild(leftBtn);
+    wrapEl.appendChild(rightBtn);
+    function updateArrows(){
+      leftBtn.classList.toggle("hide", track.scrollLeft < 8);
+      rightBtn.classList.toggle("hide", track.scrollLeft > track.scrollWidth - track.clientWidth - 8);
+    }
+    leftBtn.onclick = ()=> track.scrollBy({ left: -track.clientWidth * .8, behavior:"smooth" });
+    rightBtn.onclick = ()=> track.scrollBy({ left: track.clientWidth * .8, behavior:"smooth" });
+    track.addEventListener("scroll", updateArrows, { passive:true });
+    updateArrows();
+  });
 }
 $("#core8Grid").innerHTML = CORE_EIGHT.map(c=>{
   const name = CHAR_NAMES[c.id] ? CHAR_NAMES[c.id].split("／")[0] : c.id;
@@ -3706,6 +4606,23 @@ function spawnCelebrationBurst(x, y){
 })();
 
 (function(){
+  const searchIcon = document.getElementById("mobileSearchIcon");
+  const navEl = document.querySelector("nav");
+  if(searchIcon && navEl){
+    searchIcon.addEventListener("click", function(){
+      const opening = !navEl.classList.contains("search-open");
+      navEl.classList.toggle("search-open", opening);
+      if(opening){
+        setTimeout(function(){
+          const inp = document.getElementById("globalsearch");
+          if(inp) inp.focus();
+        }, 50);
+      }
+    });
+  }
+})();
+
+(function(){
   const wrap = $("#navlinksWrap"), links = $("#navlinks");
   if(!wrap || !links) return;
   function updateOverflow(){
@@ -3719,19 +4636,7 @@ function spawnCelebrationBurst(x, y){
   window.addEventListener("resize", updateOverflow);
 })();
 
-const fvBtn = $("#fvStartBtn");
-if(fvBtn){
-  fvBtn.addEventListener("click", ()=>{
-    orderMode = "tier";
-    tierSelected = "beginner";
-    renderOrderTabs();
-    renderTierTabs();
-    renderRails();
-    requestAnimationFrame(()=>{
-      $("#works").scrollIntoView({ behavior:"smooth", block:"start" });
-    });
-  });
-}
+
 
 
 /* ---------- WORK MODAL ---------- */
@@ -3767,6 +4672,8 @@ function openModal(m){
         <span>${t.title}</span></button>`;
     }).join("")}</div>`;
   }
+  const relatedThreads = PLOT_THREADS.map((t,i)=>({t,i})).filter(({t})=> t.works.includes(m.id));
+  const musicEntry = MUSIC.find(e=> e.movieId === m.id);
   $("#mbody").innerHTML = `
     <span class="meta mono"><span class="dot" style="background:${ph.hex}"></span>${ph.label} · ${TYPES[m.type]} · ${m.year}${m.upcoming?" (公開予定)":""} · 作中: ${m.storyYear}</span>
     <h3>${m.title}</h3>
@@ -3778,14 +4685,14 @@ function openModal(m){
       </button>
       <div class="spoiler-content" id="sp-${m.id}" hidden>${parseTerms(m.spoiler)}</div>
     </div>` : ""}
-    <div class="lbl">事前に見ておきたい作品</div>
+
+    <div class="lbl">🎬 視聴前に：この作品を見る前に</div>
     ${m.prereq.length ? `
       ${prereqBy.must.length ? `<div class="prereq-sub"><span class="req-badge req-must">視聴必須</span>知らないと本編の理解に支障が出る作品</div>${prereqList(prereqBy.must)}` : ""}
       ${prereqBy.optional.length ? `<div class="prereq-sub"><span class="req-badge req-opt">視聴任意</span>見ておくとより楽しめるが、必須ではない作品</div>${prereqList(prereqBy.optional)}` : ""}
     ` : `<div class="pnone">この作品から見始められます。他作品からの直接的な引き継ぎ要素はありません。</div>`}
     ${m.legacyPrereq && m.legacyPrereq.length ? `
-    <div class="lbl">Xメン・レガシーとのつながり</div>
-    <div class="prereq-sub"><span class="req-badge" style="background:rgba(79,195,217,.18);color:#4fc3d9;border:1px solid rgba(79,195,217,.4);">別作品世界</span>20世紀フォックス版から知っておくとより深く楽しめる作品</div>
+    <div class="prereq-sub" style="margin-top:.8rem"><span class="req-badge" style="background:rgba(79,195,217,.18);color:#4fc3d9;border:1px solid rgba(79,195,217,.4);">別作品世界</span>Xメン・レガシー（20世紀フォックス版）から知っておくとより深く楽しめる作品</div>
     <div class="pql">${m.legacyPrereq.map(p=>{
       const t = XMEN_LEGACY.find(x=>x.id===p.id); if(!t) return "";
       return `<button class="pqc" data-lx="${t.id}">
@@ -3793,7 +4700,36 @@ function openModal(m){
         <span>${t.title}</span>
         <span class="req-badge ${p.level==="must"?"req-must":"req-opt"}" style="margin-left:auto">${p.level==="must"?"必須":"任意"}</span></button>`;
     }).join("")}</div>` : ""}
-    <div class="lbl">この後におすすめの作品</div>
+
+    ${PREWATCH[m.id] ? `
+    <div class="lbl">🧠 予習：見る前に知っておきたいこと</div>
+    <ul class="prewatch-list">${PREWATCH[m.id].map(t=>`<li>${parseTerms(t)}</li>`).join("")}</ul>` : ""}
+
+    <div class="lbl">👥 キャラクター</div>
+    ${m.cast.length ? renderCastGroups(m.cast) : `<div class="pnone">他作品から継続する主要キャラクターはいません。</div>`}
+    ${m.extra && m.extra.length ? `
+    <div class="extracast" style="margin-top:.6rem">${m.extra.map(x=>`
+      <button class="wikiname extraperson" data-wiki-ja="${x.ja}" data-wiki-en="${x.en}">
+        <span class="ep-role">${x.role}</span><span class="ep-name">${x.ja}</span>
+      </button>`).join("")}</div>` : ""}
+
+    ${relatedThreads.length ? `
+    <div class="lbl">🧩 伏線</div>
+    <div class="modal-thread-list">${relatedThreads.map(({t,i})=>`
+      <button class="modal-thread-card" data-modal-thread="${i}" style="--tc:${THREAD_STATUS_HEX[t.status]}">
+        <span class="thread-status">${t.status}</span>
+        <span class="modal-thread-title">${t.title}</span>
+      </button>`).join("")}</div>` : ""}
+
+    ${musicEntry && musicEntry.songs.length ? `
+    <div class="lbl">🎵 音楽</div>
+    <div class="modal-song-list">${musicEntry.songs.slice(0,3).map(s=>`
+      <div class="modal-song-row">
+        <span class="modal-song-title">${s.title}</span>
+        <span class="modal-song-artist">${s.artist}</span>
+      </div>`).join("")}${musicEntry.songs.length > 3 ? `<button class="modal-song-more" data-goto-music="${m.id}">他${musicEntry.songs.length-3}曲を見る →</button>` : ""}</div>` : ""}
+
+    <div class="lbl">👀 視聴後：この後におすすめの作品</div>
     ${nextWorks.length
       ? `<div class="pql">${nextWorks.map(({work:t,level})=>{
           const p = PHASES[t.phase];
@@ -3802,17 +4738,33 @@ function openModal(m){
             <span>${t.title}</span>
             <span class="req-badge ${level==="must"?"req-must":"req-opt"}" style="margin-left:auto">${level==="must"?"必須":"任意"}</span></button>`;
         }).join("")}</div>`
-      : `<div class="pnone">現時点で、この作品を前提とする続編は登録されていません。</div>`}
-    <div class="lbl">主な登場人物</div>
-    ${m.cast.length ? renderCastGroups(m.cast) : `<div class="pnone">他作品から継続する主要キャラクターはいません。</div>`}
-    ${m.extra && m.extra.length ? `
-    <div class="lbl">その他の主要キャラクター</div>
-    <div class="extracast">${m.extra.map(x=>`
-      <button class="wikiname extraperson" data-wiki-ja="${x.ja}" data-wiki-en="${x.en}">
-        <span class="ep-role">${x.role}</span><span class="ep-name">${x.ja}</span>
-      </button>`).join("")}</div>` : ""}`;
+      : `<div class="pnone">現時点で、この作品を前提とする続編は登録されていません。</div>`}`;
   bindTerms($("#mbody"));
   bindWikiLinks($("#mbody"));
+  $("#mbody").querySelectorAll("[data-modal-thread]").forEach(b=>{
+    b.onclick = ()=>{
+      closeOverlays();
+      document.getElementById("cross").scrollIntoView({ behavior:"smooth", block:"start" });
+      setTimeout(()=>{
+        const card = document.getElementById("thread-" + b.dataset.modalThread);
+        if(card) card.scrollIntoView({ behavior:"smooth", block:"center" });
+      }, 400);
+    };
+  });
+  $("#mbody").querySelectorAll("[data-goto-music]").forEach(b=>{
+    b.onclick = ()=>{
+      closeOverlays();
+      document.getElementById("music").scrollIntoView({ behavior:"smooth", block:"start" });
+      setTimeout(()=>{
+        const toggle = document.querySelector('[data-music-toggle="' + b.dataset.gotoMusic + '"]');
+        if(toggle){
+          toggle.scrollIntoView({ behavior:"smooth", block:"center" });
+          const panel = document.getElementById("mc-songs-" + b.dataset.gotoMusic);
+          if(panel && panel.hidden) toggle.click();
+        }
+      }, 400);
+    };
+  });
   $("#mbody").querySelectorAll(".pqc[data-w]").forEach(b=>{
     b.onclick = ()=>{ const t = MOVIES.find(x=>x.id===b.dataset.w); if(t) openModal(t); };
   });
@@ -3891,7 +4843,7 @@ bindTerms($("#cnlist"));
 
 const THREAD_STATUS_HEX = { "曖昧":"#e8b923", "未解決":"#d1503f", "進行中":"#5b8fd6" };
 $("#threadlist").innerHTML = PLOT_THREADS.map((t,i)=>`
-  <div class="thread-card" style="--tc:${THREAD_STATUS_HEX[t.status]}">
+  <div class="thread-card" id="thread-${i}" style="--tc:${THREAD_STATUS_HEX[t.status]}">
     <div class="thread-head">
       <span class="thread-status">${t.status}</span>
       <h4>${t.title}</h4>
@@ -4425,6 +5377,7 @@ function renderAffFilter(){
 
 const nodes = Object.keys(CHAR_NAMES).map(id=>({ id, name:CHAR_NAMES[id], aff:CHAR_AFF[id],
   deg: RELATIONS.filter(r=>r.a===id||r.b===id).length }));
+renderTodayMcu();
 const links = RELATIONS.map(r=>({ source:r.a, target:r.b, type:r.type, cat:r.cat }));
 const nbr = {};
 nodes.forEach(n=> nbr[n.id] = new Set([n.id]));
@@ -5260,12 +6213,39 @@ function closeOverlays(){ backdrop.classList.remove("open"); panel.classList.rem
 
   function render(query){
     const q = query.trim().toLowerCase();
-    if(!q){ results.hidden = true; results.innerHTML = ""; return; }
+    if(!q){
+      results.innerHTML = `<div class="sr-group">何を探しますか？</div>
+        <button data-sr-jump="works">🔎 作品 <span class="sr-sub">どの作品を観る？</span></button>
+        <button data-sr-jump="chars">👤 キャラクター <span class="sr-sub">この人誰？</span></button>
+        <button data-sr-jump="glossary">📖 用語 <span class="sr-sub">分からない言葉を調べる</span></button>
+        <button data-sr-jump="cosmology">🌌 世界観 <span class="sr-sub">MCUの世界を知る</span></button>
+        <button data-sr-jump="cross">🔗 つながり <span class="sr-sub">作品や人物の関係を見る</span></button>`;
+      positionResults();
+      results.hidden = false;
+      results.querySelectorAll("[data-sr-jump]").forEach(b=>{
+        b.onclick = ()=>{
+          closeResults();
+          const t = document.getElementById(b.dataset.srJump);
+          if(t) t.scrollIntoView({ behavior:"smooth", block:"start" });
+        };
+      });
+      return;
+    }
     const workHits = MOVIES.filter(m=> m.title.toLowerCase().includes(q)).slice(0,6);
     const legacyHits = XMEN_LEGACY.map((item,i)=>({item,i})).filter(({item})=> item.title.toLowerCase().includes(q)).slice(0,4);
     const charHits = nodes.filter(n=> n.name.toLowerCase().includes(q)).slice(0,6);
     const termHits = Object.entries(TERMS).filter(([,t])=> t.label.toLowerCase().includes(q)).slice(0,6);
-    if(!workHits.length && !charHits.length && !legacyHits.length && !termHits.length){
+    const threadHits = PLOT_THREADS.map((t,i)=>({t,i})).filter(({t})=> t.title.toLowerCase().includes(q)).slice(0,4);
+    const songHits = [];
+    MUSIC.forEach(entry=>{
+      entry.songs.forEach(s=>{
+        if(s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q)){
+          songHits.push({ movieId: entry.movieId, song: s });
+        }
+      });
+    });
+    const songHitsLimited = songHits.slice(0,4);
+    if(!workHits.length && !charHits.length && !legacyHits.length && !termHits.length && !threadHits.length && !songHitsLimited.length){
       results.innerHTML = `<div class="sr-empty">「${escapeHtml(query)}」に一致する作品・キャラクター・用語は見つかりませんでした。</div>`;
       positionResults();
       results.hidden = false;
@@ -5285,8 +6265,16 @@ function closeOverlays(){ backdrop.classList.remove("open"); panel.classList.rem
         `<button data-sr-c="${n.id}">${avatar(n.id,20)}${n.name.split("／")[0]}</button>`).join("");
     }
     if(termHits.length){
-      html += `<div class="sr-group">用語</div>` + termHits.map(([id,t])=>
+      html += `<div class="sr-group">用語・世界観</div>` + termHits.map(([id,t])=>
         `<button data-sr-t="${id}"><span class="dot" style="background:var(--mind);width:18px;height:18px;border-radius:5px;flex-shrink:0;display:inline-block"></span>${t.label}</button>`).join("");
+    }
+    if(threadHits.length){
+      html += `<div class="sr-group">伏線・つながり</div>` + threadHits.map(({t,i})=>
+        `<button data-sr-th="${i}"><span class="dot" style="background:${THREAD_STATUS_HEX[t.status]};width:18px;height:18px;border-radius:5px;flex-shrink:0;display:inline-block"></span>${t.title}</button>`).join("");
+    }
+    if(songHitsLimited.length){
+      html += `<div class="sr-group">音楽</div>` + songHitsLimited.map(({movieId,song})=>
+        `<button data-sr-m="${movieId}"><span class="dot" style="background:var(--red);width:18px;height:18px;border-radius:5px;flex-shrink:0;display:inline-block"></span>${song.title}<span class="sr-sub"> / ${song.artist}</span></button>`).join("");
     }
     results.innerHTML = html;
     positionResults();
@@ -5303,6 +6291,19 @@ function closeOverlays(){ backdrop.classList.remove("open"); panel.classList.rem
     results.querySelectorAll("[data-sr-t]").forEach(b=>{
       b.onclick = ()=>{ showTermPopup(b.dataset.srT); closeResults(); };
     });
+    results.querySelectorAll("[data-sr-th]").forEach(b=>{
+      b.onclick = ()=>{
+        closeResults();
+        document.getElementById("cross").scrollIntoView({ behavior:"smooth", block:"start" });
+        setTimeout(()=>{
+          const card = document.getElementById("thread-" + b.dataset.srTh);
+          if(card) card.scrollIntoView({ behavior:"smooth", block:"center" });
+        }, 400);
+      };
+    });
+    results.querySelectorAll("[data-sr-m]").forEach(b=>{
+      b.onclick = ()=>{ closeOverlays(); const m = MOVIES.find(x=>x.id===b.dataset.srM); if(m) openModal(m); closeResults(); };
+    });
   }
   function avatar_placeholder(){
     return `<span class="dot" style="background:var(--azure);width:18px;height:18px;border-radius:5px;flex-shrink:0;display:inline-block"></span>`;
@@ -5311,7 +6312,7 @@ function closeOverlays(){ backdrop.classList.remove("open"); panel.classList.rem
   input.addEventListener("input", ()=> render(input.value));
   window.addEventListener("resize", ()=>{ if(!results.hidden) positionResults(); });
   window.addEventListener("scroll", ()=>{ if(!results.hidden) positionResults(); }, { passive:true });
-  input.addEventListener("focus", ()=>{ if(input.value.trim()) render(input.value); });
+  input.addEventListener("focus", ()=> render(input.value));
   document.addEventListener("click", (e)=>{
     if(!$("#navsearch").contains(e.target) && !results.contains(e.target)) results.hidden = true;
   });
